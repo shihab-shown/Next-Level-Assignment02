@@ -16,6 +16,10 @@ app.use('/api/v1/bookings', bookingRoute);
 app.get('/', (req: Request, res: Response) => {
   res.send('Hello Typescript!')
 })
-export const server = app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
-})
+export const server = !process.env.VERCEL
+  ? app.listen(port, () => {
+      console.log(`Example app listening on port ${port}`)
+    })
+  : null;
+
+export default app;

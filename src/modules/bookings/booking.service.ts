@@ -58,7 +58,6 @@ const getAllBookings = async (user: User) => {
   if (!result || result.rows.length === 0) {
     return { success: false, message: 'Failed to fetch bookings', error: 'Something went wrong' };
   }
-
   const data = result.rows.map(row => ({
     id: row.id,
     customer_id: row.customer_id,
@@ -68,8 +67,8 @@ const getAllBookings = async (user: User) => {
     total_price: row.total_price,
     status: row.status,
     customer: {
-      name: row.customer_name,
-      email: row.customer_email,
+      name: row.name,
+      email: row.email,
     },
     vehicle: {
       vehicle_name: row.vehicle_name,
