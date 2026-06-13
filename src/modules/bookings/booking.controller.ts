@@ -41,7 +41,6 @@ const getAllBookings = async (req: Request, res: Response) => {
     );
     return;
   }
-  console.log(`User ${user.id} with role ${user.role} is fetching all bookings`);
   try {
     const result = await bookingService.getAllBookings(user);
     if (Array.isArray(result) && result.length > 0) {
