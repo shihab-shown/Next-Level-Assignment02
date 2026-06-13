@@ -12,7 +12,7 @@ export const auth = (req: Request, res: Response, next: NextFunction) => {
 
   const token = authHeader.split(' ')[1];
   if (!token) {
-    return res.status(401).json({ error: 'Token missing' });
+    return res.status(401).json({ error: 'Missing or invalid authentication token' });
   }
   try {
     const decoded = jwt.verify(token, secret) as User;

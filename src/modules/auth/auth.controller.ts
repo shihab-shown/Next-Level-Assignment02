@@ -5,10 +5,10 @@ const signupUser = async (req: Request, res: Response) => {
   try {
     const result = await authService.signupUser(req.body);
 
-    if (result) {
+    if (result && !result.error) {
       res.status(201).json(
         {
-          "success": "true",
+          "success": true,
           "message": "User registered successfully",
           "data": result
         }
@@ -16,9 +16,9 @@ const signupUser = async (req: Request, res: Response) => {
     } else {
       res.status(400).json(
         {
-          "success": "false",
+          "success": false,
           "message": "User registration failed",
-          "error": "Email already in use"
+          "error": result.error || "Email already in use"
         }
       );
     }
@@ -32,25 +32,25 @@ const signinUser = async (req: Request, res: Response) => {
   try {
     const result = await authService.signinUser(req.body);
 
-    if (result) {
-      res.status(201).json(
+    if (result && !result.error) {
+      res.status(200).json(
         {
-          "success": "true",
+          "success": true,
           "message": "Login successful",
           "data": result
         }
       );
     } else {
-      res.status(400).json(
+      res.status(401).json(
         {
-          "success": "false",
+          "success": false,
           "message": "Login failed",
-          "error": "Something went wrong"
+          "error": result.error || "Something went wrong"
         }
       );
     }
   } catch (err) {
-    console.error('Error registering user:', err);
+    console.error('Error signing in user:', err);
     res.status(500).json({ error: 'Internal server error' });
   }
 }

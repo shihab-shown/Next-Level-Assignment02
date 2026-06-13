@@ -66,15 +66,10 @@ const updateUser = async (id: number, payload: Record<string, unknown>) => {
 };
 
 const deleteUser = async (id: number) => {
-  const isBooked = await pool.query('SELECT * FROM users WHERE id = $1', [id]);
-  if (isBooked.rows.length === 0) {
-    return { success: false, message: `User with ID ${id} not found`, error: 'Not found' };
+  const isBooked = await pool.query("SELECT * FROM bookings WHERE customer_id = $1 AND status = 'active'", [id]);
+  if (isBooked.rows.length !== 0) {
+    return { success: false, message: `User with ID ${id} has active bookings and cannot be deleted`, error: 'User has active bookings' };
   }
-  // TODO: If we want to prevent deletion of users with active bookings, we would need to check the bookings table for any active bookings associated with this user. For now, we will allow deletion regardless of booking status.
-  
-  // else if (isBooked.rows[0].availability_status === 'booked') {
-  //   return { success: false, message: `Vehicle with ID ${id} is currently booked and cannot be deleted`, error: 'Vehicle is booked' };
-  // }
   const result = await pool.query('DELETE FROM users WHERE id = $1 RETURNING *', [id]);
   if (!result || result.rows.length === 0) {
     console.error(`Failed to delete vehicle with ID ${id}:`, result);

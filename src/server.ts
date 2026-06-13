@@ -4,22 +4,18 @@ import { initDatabase } from './database/db'
 import { authRoute } from './modules/auth/auth.route'
 import { vehicleRoute } from './modules/vehicles/vehicle.route'
 import { usersRoute } from './modules/user/user.route'
-
-
-const app = express()
+import { bookingRoute } from './modules/bookings/booking.route'
+export const app = express()
 const port = config.port
-app.use(express.json()) // Middleware to parse JSON bodies
-
+app.use(express.json())
 initDatabase();
-
 app.use('/api/v1/auth', authRoute);
 app.use('/api/v1/vehicles', vehicleRoute);
 app.use('/api/v1/users', usersRoute);
-
+app.use('/api/v1/bookings', bookingRoute);
 app.get('/', (req: Request, res: Response) => {
   res.send('Hello Typescript!')
 })
-
-app.listen(port, () => {
+export const server = app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })

@@ -30,8 +30,8 @@ export const initDatabase = async () => {
         id SERIAL PRIMARY KEY,
         customer_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
         vehicle_id INTEGER NOT NULL REFERENCES vehicles(id) ON DELETE CASCADE,
-        rent_start_date DATE NOT NULL,
-        rent_end_date DATE NOT NULL,
+        rent_start_date VARCHAR(20) NOT NULL,
+        rent_end_date VARCHAR(20) NOT NULL,
         total_price DECIMAL(10, 2) NOT NULL CHECK (total_price > 0),
         status VARCHAR(10) NOT NULL DEFAULT 'active' CHECK (status IN ('active', 'cancelled', 'returned')),
         CONSTRAINT valid_date_range CHECK (rent_end_date > rent_start_date)
@@ -41,6 +41,6 @@ export const initDatabase = async () => {
     console.log('Database tables initialized successfully');
   } catch (err) {
     console.error('Error initializing database:', err);
-    throw err; // Re-throw to handle upstream
+    throw err; 
   }
 }

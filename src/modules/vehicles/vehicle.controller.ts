@@ -8,7 +8,7 @@ const createVehicle = async (req: Request, res: Response) => {
     if (result) {
       res.status(201).json(
         {
-          "success": "true",
+          "success": true,
           "message": "Vehicle created successfully",
           "data": result
         }
@@ -16,7 +16,7 @@ const createVehicle = async (req: Request, res: Response) => {
     } else {
       res.status(400).json(
         {
-          "success": "false",
+          "success": false,
           "message": "Vehicle Creation failed",
           "error": "Something went wrong"
         }
@@ -34,7 +34,7 @@ const getAllVehicles = async (req: Request, res: Response) => {
     if (Array.isArray(result) && result.length > 0) {
       res.status(200).json(
         {
-          "success": "true",
+          "success": true,
           "message": "Vehicles retrieved successfully",
           "data": result
         }
@@ -43,7 +43,7 @@ const getAllVehicles = async (req: Request, res: Response) => {
     else if (Array.isArray(result) && result.length === 0) {
       res.status(200).json(
         {
-          "success": "true",
+          "success": true,
           "message": "No vehicles found",
           "data": []
         }
@@ -54,7 +54,7 @@ const getAllVehicles = async (req: Request, res: Response) => {
       const errDetail = (result as any)?.error ?? "Something went wrong";
       res.status(400).json(
         {
-          "success": "false",
+          "success": false,
           "message": errMsg,
           "error": errDetail
         }
@@ -63,7 +63,7 @@ const getAllVehicles = async (req: Request, res: Response) => {
     else {
       res.status(400).json(
         {
-          "success": "false",
+          "success": false,
           "message": "Failed to fetch vehicles",
           "error": "Something went wrong"
         }
@@ -82,7 +82,7 @@ const getVehiclebyID = async (req: Request, res: Response) => {
     if (result && !('error' in result)) {
       res.status(200).json(
         {
-          "success": "true",
+          "success": true,
           "message": "Vehicle retrieved successfully",
           "data": result
         }
@@ -92,7 +92,7 @@ const getVehiclebyID = async (req: Request, res: Response) => {
       const errDetail = (result as any)?.error ?? "Something went wrong";
       res.status(404).json(
         {
-          "success": "false",
+          "success": false,
           "message": errMsg,
           "error": errDetail
         }
@@ -111,7 +111,7 @@ const updateVehicle = async (req: Request, res: Response) => {
     if (result && !('error' in result)) {
       res.status(200).json(
         {
-          "success": "true",
+          "success": true,
           "message": "Vehicle updated successfully",
           "data": result
         }
@@ -121,7 +121,7 @@ const updateVehicle = async (req: Request, res: Response) => {
       const errDetail = (result as any)?.error ?? "Something went wrong";
       res.status(404).json(
         {
-          "success": "false",
+          "success": false,
           "message": errMsg,
           "error": errDetail
         }
@@ -140,7 +140,7 @@ const deleteVehicle = async (req: Request, res: Response) => {
     if (result && !('error' in result)) {
       res.status(200).json(
         {
-          "success": "true",
+          "success": true,
           "message": "Vehicle deleted successfully",
           "data": result
         }
@@ -150,7 +150,7 @@ const deleteVehicle = async (req: Request, res: Response) => {
       const errDetail = (result as any)?.error ?? "Something went wrong";
       res.status(404).json(
         {
-          "success": "false",
+          "success": false,
           "message": errMsg,
           "error": errDetail
         }

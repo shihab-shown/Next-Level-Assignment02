@@ -8,7 +8,7 @@ const getAllUsers = async (req: Request, res: Response) => {
     if (Array.isArray(result) && result.length > 0) {
       res.status(200).json(
         {
-          "success": "true",
+          "success": true,
           "message": "userss retrieved successfully",
           "data": result
         }
@@ -17,7 +17,7 @@ const getAllUsers = async (req: Request, res: Response) => {
     else if (Array.isArray(result) && result.length === 0) {
       res.status(200).json(
         {
-          "success": "true",
+          "success": true,
           "message": "No userss found",
           "data": []
         }
@@ -28,7 +28,7 @@ const getAllUsers = async (req: Request, res: Response) => {
       const errDetail = (result as any)?.error ?? "Something went wrong";
       res.status(400).json(
         {
-          "success": "false",
+          "success": false,
           "message": errMsg,
           "error": errDetail
         }
@@ -37,7 +37,7 @@ const getAllUsers = async (req: Request, res: Response) => {
     else {
       res.status(400).json(
         {
-          "success": "false",
+          "success": false,
           "message": "Failed to fetch userss",
           "error": "Something went wrong"
         }
@@ -56,7 +56,7 @@ const updateUser = async (req: Request, res: Response) => {
     if (result && !('error' in result)) {
       res.status(200).json(
         {
-          "success": "true",
+          "success": true,
           "message": "users updated successfully",
           "data": result
         }
@@ -66,7 +66,7 @@ const updateUser = async (req: Request, res: Response) => {
       const errDetail = (result as any)?.error ?? "Something went wrong";
       res.status(404).json(
         {
-          "success": "false",
+          "success": false,
           "message": errMsg,
           "error": errDetail
         }
@@ -85,7 +85,7 @@ const deleteUser = async (req: Request, res: Response) => {
     if (result && !('error' in result)) {
       res.status(200).json(
         {
-          "success": "true",
+          "success": true,
           "message": "users deleted successfully",
           "data": result
         }
@@ -95,7 +95,7 @@ const deleteUser = async (req: Request, res: Response) => {
       const errDetail = (result as any)?.error ?? "Something went wrong";
       res.status(404).json(
         {
-          "success": "false",
+          "success": false,
           "message": errMsg,
           "error": errDetail
         }
